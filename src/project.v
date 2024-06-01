@@ -19,13 +19,35 @@ module tt_um_asinghani_tinywspr (
     assign uio_out = 0;
     assign uio_oe  = 0;
 
+    reg config_start0, config_start1, config_start2;
+    always @(posedge clk) begin
+        config_start0 <= ui_in[1];
+        config_start1 <= config_start0;
+        config_start2 <= config_start1;
+    end
+
+    reg rf_start0, rf_start1, rf_start2;
+    always @(posedge clk) begin
+        rf_start0 <= ui_in[2];
+        rf_start1 <= rf_start0;
+        rf_start2 <= rf_start1;
+    end
+
+    reg config_valid0, config_valid1, config_valid2, config_validlast;
+    always @(posedge clk) begin
+        config_valid0 <= ui_in[0];
+        config_valid1 <= config_valid0;
+        config_valid2 <= config_valid1;
+        config_validlast <= config_valid2;
+    end
+
     TopLevel tl (
         .clock(clk),
         .reset(!rst_n),
         .io_config_bits_in(uio_in),
-        .io_config_valid_in(io_in[0]),
-        .io_config_start(io_in[1]),
-        .io_rf_start(io_in[2]),
+        .io_config_valid_in(config_valid2 && ~config_validlast),
+        .io_config_start(config_start2),
+        .io_rf_start(rf_start2),
         .io_rf_out(uo_out[0]),
         .io_bit_out(uo_out[7:6])
     )
