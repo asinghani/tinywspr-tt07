@@ -50,7 +50,7 @@ module tt_um_asinghani_tinywspr (
         .io_rf_start(rf_start2),
         .io_rf_out(uo_out[0]),
         .io_bit_out(uo_out[7:6])
-    )
+    );
 
     assign uo_out[1] = uo_out[0];
     assign uo_out[5:2] = 0;
