@@ -1,0 +1,9 @@
+
+Input args
+- callsign (6x7)
+- location (4x7) - swap 2nd and 3rd char
+- power level (1x7)
+- symbol time (4x8)
+- divider (4x8)
+- deviation (2x8)
+
